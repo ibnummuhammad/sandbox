@@ -6,7 +6,7 @@ namespace HelloWorldApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Helloo");
+            Console.WriteLine("Helloowei");
 
             Console.ReadKey();
         }
