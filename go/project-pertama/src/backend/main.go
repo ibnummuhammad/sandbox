@@ -6,13 +6,8 @@ import (
 )
 
 func main() {
-	var name = flag.String("name", "anonymous", "type your name")
-	var age = flag.Int64("age", 25, "type your age")
-	var data2 string
-	flag.StringVar(&data2, "gender", "male", "type your gender")
+	var pipelineName = flag.String("pipeline_name", "", "pipeline context name")
 
 	flag.Parse()
-	fmt.Printf("name\t: %s\n", *name)
-	fmt.Printf("age\t: %d\n", *age)
-	fmt.Println(data2)
+	fmt.Printf("pipeline_name\t: %s\n", *pipelineName)
 }
