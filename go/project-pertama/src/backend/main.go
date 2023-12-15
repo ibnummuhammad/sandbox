@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 )
 
 const (
@@ -39,21 +38,4 @@ var (
 
 func main() {
 	flag.Parse()
-	fmt.Printf("type\t: %s\n", *driverType)
-	fmt.Printf("pipeline_name\t: %s\n", *pipelineName)
-	fmt.Printf("run_id\t: %s\n", *runID)
-	fmt.Printf("component\t: %s\n", *componentSpecJson)
-	fmt.Printf("task\t: %s\n", *taskSpecJson)
-	fmt.Printf("runtime_config\t: %s\n", *runtimeConfigJson)
-	fmt.Printf("iteration_index\t: %d\n", *iterationIndex)
-	fmt.Printf("dag_execution_id\t: %d\n", *dagExecutionID)
-	fmt.Printf("container\t: %s\n", *containerSpecJson)
-	fmt.Printf("kubernetes_config\t: %s\n", *k8sExecConfigJson)
-	fmt.Printf("mlmd_server_address\t: %s\n", *mlmdServerAddress)
-	fmt.Printf("mlmd_server_port\t: %s\n", *mlmdServerPort)
-	fmt.Printf("execution_id_path\t: %s\n", *executionIDPath)
-	fmt.Printf("iteration_count_path\t: %s\n", *iterationCountPath)
-	fmt.Printf("pod_spec_patch_path\t: %s\n", *podSpecPatchPath)
-	fmt.Printf("cached_decision_path\t: %s\n", *cachedDecisionPath)
-	fmt.Printf("condition_path\t: %s\n", *conditionPath)
 }
