@@ -5,9 +5,12 @@ import (
 	"fmt"
 )
 
-func main() {
-	var pipelineName = flag.String("pipeline_name", "", "pipeline context name")
+var (
+	// inputs
+	pipelineName = flag.String("pipeline_name", "", "pipeline context name")
+)
 
+func main() {
 	flag.Parse()
 	fmt.Printf("pipeline_name\t: %s\n", *pipelineName)
 }
