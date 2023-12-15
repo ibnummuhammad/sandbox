@@ -5,8 +5,13 @@ import (
 	"fmt"
 )
 
+const (
+	driverTypeArg = "type"
+)
+
 var (
 	// inputs
+	driverType        = flag.String(driverTypeArg, "", "task driver type, one of ROOT_DAG, DAG, CONTAINER")
 	pipelineName      = flag.String("pipeline_name", "", "pipeline context name")
 	runID             = flag.String("run_id", "", "pipeline run uid")
 	componentSpecJson = flag.String("component", "{}", "component spec")
@@ -34,6 +39,7 @@ var (
 
 func main() {
 	flag.Parse()
+	fmt.Printf("type\t: %s\n", *driverType)
 	fmt.Printf("pipeline_name\t: %s\n", *pipelineName)
 	fmt.Printf("run_id\t: %s\n", *runID)
 	fmt.Printf("component\t: %s\n", *componentSpecJson)
