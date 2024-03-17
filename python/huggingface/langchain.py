@@ -21,4 +21,8 @@ quantization_config = BitsAndBytesConfig(
     bnb_4bit_quant_type="nf4",
     bnb_4bit_use_double_quant=True,
 )
-print(quantization_config)
+
+# Initialization of a tokenizer for the Mistral-7b model,
+# necessary to preprocess text data for input
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast=True)
+print(tokenizer)
