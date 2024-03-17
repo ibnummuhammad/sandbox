@@ -25,4 +25,5 @@ quantization_config = BitsAndBytesConfig(
 # Initialization of a tokenizer for the Mistral-7b model,
 # necessary to preprocess text data for input
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast=True)
+tokenizer.pad_token = tokenizer.eos_token
 print(tokenizer)
