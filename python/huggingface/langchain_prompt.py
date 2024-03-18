@@ -1,7 +1,7 @@
 import os
 
 from langchain_community.llms import HuggingFaceEndpoint
-from langchain.chains import LLMChain
+from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 
 HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
@@ -20,5 +20,4 @@ llm = HuggingFaceEndpoint(
     repo_id=repo_id, max_length=128, temperature=0.5, token=HUGGINGFACEHUB_API_TOKEN
 )
 llm_chain = LLMChain(prompt=prompt, llm=llm)
-print("disini")
-print(llm_chain.run(question))
+print(llm_chain.invoke(question))
