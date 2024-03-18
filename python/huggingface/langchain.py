@@ -1,9 +1,10 @@
 from huggingface_hub import InferenceClient
 from langchain_core.prompts import PromptTemplate
 
-client = InferenceClient("mistralai/Mixtral-8x7B-Instruct-v0.1")
+model_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
+template = "<s>[INST] {question} [/INST]"
 
-template = "<s>[INST] tell me a joke [/INST]"
+client = InferenceClient(model_id)
 
 prompt = PromptTemplate.from_template(template)
 print(prompt)
