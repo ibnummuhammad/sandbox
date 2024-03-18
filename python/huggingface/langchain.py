@@ -1,8 +1,4 @@
-from transformers import AutoTokenizer
-import transformers
-import torch
+from huggingface_hub import InferenceClient
 
-model = "mistralai/Mixtral-8x7B-Instruct-v0.1"
-
-tokenizer = AutoTokenizer.from_pretrained(model)
-print(tokenizer)
+client = InferenceClient("mistralai/Mixtral-8x7B-Instruct-v0.1")
+print(client)
