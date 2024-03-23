@@ -11,7 +11,7 @@ question = "Who won the FIFA World Cup in the year 1994? "
 
 template = """Question: {question}
 
-Answer: Let's think step by step."""
+Answer: Give direct answer."""
 
 prompt = PromptTemplate.from_template(template)
 
