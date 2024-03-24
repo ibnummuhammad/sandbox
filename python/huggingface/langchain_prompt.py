@@ -7,9 +7,11 @@ from langchain.prompts import PromptTemplate
 
 HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
-question = "The sky is"
+question = "Who won the FIFA World Cup in the year 1994? "
 
-template = """Complete the sentence: {question}"""
+template = """Question: {question}
+
+Answer: Give direct answer."""
 
 prompt = PromptTemplate.from_template(template)
 
