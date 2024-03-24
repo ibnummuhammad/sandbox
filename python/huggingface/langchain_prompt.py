@@ -5,8 +5,6 @@ from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 
-HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
-
 question = "Who won the FIFA World Cup in the year 1994? "
 
 template = """Question: {question}
