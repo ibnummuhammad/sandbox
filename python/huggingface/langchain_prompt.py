@@ -5,11 +5,10 @@ from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 
-question = "Who won the FIFA World Cup in the year 1994? "
+question = "Who won the FIFA World Cup in the year 1994?"
 
-template = """Question: {question}
-
-Answer: Give direct answer."""
+template = """Q: {question}?
+A: """
 
 prompt = PromptTemplate.from_template(template)
 
