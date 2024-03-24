@@ -10,7 +10,9 @@ input = "hello!"
 template = '''### Instruction ###
 Translate the text below to Spanish:
 
-Text: "{input}"'''
+Text: "{input}"
+
+Answer:'''
 
 prompt = PromptTemplate.from_template(template)
 
