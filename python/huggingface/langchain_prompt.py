@@ -1,20 +1,14 @@
 import json
-import os
 
 from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 
-input = "Champalimaud Centre for the Unknown, Lisbon"
+input = "Explain antibiotics"
 
-template = """Extract the name of places in the following text. 
+template = """{input}
 
-Desired format:
-Place: {input}
-
-Input: 'Although these developments are encouraging to researchers, much is still a mystery. “We often have a black box between the brain and the effect we see in the periphery,” says Henrique Veiga-Fernandes, a neuroimmunologist at the Champalimaud Centre for the Unknown in Lisbon. “If we want to use it in the therapeutic context, we actually need to understand the mechanism.“'
-
-Output: """
+A: """
 
 prompt = PromptTemplate.from_template(template)
 
