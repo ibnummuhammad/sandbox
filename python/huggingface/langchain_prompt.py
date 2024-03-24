@@ -5,13 +5,12 @@ from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 
-input = "I think the food was okay."
+input = "hello!"
 
-template = """Classify the text into neutral, negative, or positive
+template = """### Instruction ###
+Translate the text below to Spanish:
 
-Text: {input}
-
-Sentiment:"""
+Text: {input}"""
 
 prompt = PromptTemplate.from_template(template)
 
