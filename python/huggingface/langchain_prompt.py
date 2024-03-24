@@ -4,15 +4,15 @@ from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
 
-input = "What was OKT3 originally sourced from?"
+input = "I think the food was okay."
 
-template = """Answer the question based on the context below. Keep the answer short and concise. Respond "Unsure about answer" if not sure about the answer.
+template = """Classify the text into neutral, negative or positive.
 
-Context: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.
+Text: I think the vacation is okay.
+Sentiment: neutral
 
-Question: {input}
-
-Answer:"""
+Text: {input}
+Sentiment:"""
 
 prompt = PromptTemplate.from_template(template)
 
