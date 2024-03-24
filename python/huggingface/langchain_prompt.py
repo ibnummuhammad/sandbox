@@ -7,10 +7,10 @@ from langchain.prompts import PromptTemplate
 
 input = "hello!"
 
-template = """### Instruction ###
+template = '''### Instruction ###
 Translate the text below to Spanish:
 
-Text: '{input}'"""
+Text: "{input}"'''
 
 prompt = PromptTemplate.from_template(template)
 
