@@ -1,7 +1,9 @@
 import pandas as pd
 
 
-df = pd.DataFrame(data={"col1": [1, 2], "col2": [3, 4]})
+df = pd.DataFrame(
+    data={"col1": ["0809032932980934", 2], "col2": ["007878783243343434", 4]}
+)
 print("original...")
 print(df)
 print(df.dtypes)
@@ -16,7 +18,7 @@ print("\nconvert_to_str...")
 print(df)
 print(df.dtypes)
 
-df.to_parquet("df.parquet.gzip", compression="gzip")
+df.to_parquet("df.parquet.gzip", compression="gzip", index=False)
 df_output = pd.read_parquet("df.parquet.gzip")
 print("\nto_parquet...")
 print(df_output)
