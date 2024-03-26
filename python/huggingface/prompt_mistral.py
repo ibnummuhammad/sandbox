@@ -43,3 +43,12 @@ The OCR result might not be complete and contains some typo, but you must adhere
 
 ### USER INPUT ###
 """
+
+messages_0 = []
+messages_0.append(
+    [
+        {"role": "system", "content": f"{system_prompt}"},
+        {"role": "user", "content": f"{ktp_ocr_data_1['ocr_text'][0]}"},
+    ]
+)
+print(messages_0)
