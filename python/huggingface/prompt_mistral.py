@@ -1,7 +1,9 @@
+import json
 import os
+
 import openai
-from openai import OpenAI
 import pandas as pd
+from openai import OpenAI
 
 
 ktp_ocr_data = pd.read_csv("~/Downloads/ktp_ocr_data_20240319 (3).csv")
@@ -51,4 +53,4 @@ messages_0.append(
         {"role": "user", "content": f"{ktp_ocr_data_1['ocr_text'][0]}"},
     ]
 )
-print(messages_0)
+print(json.dumps(messages_0, indent=2))
