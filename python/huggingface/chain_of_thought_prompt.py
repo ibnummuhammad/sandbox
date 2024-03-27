@@ -4,7 +4,7 @@ from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 
 
 repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
-llm_mixtral = HuggingFaceEndpoint(repo_id=repo_id, temperature=0.5)
+llm_mixtral = HuggingFaceEndpoint(repo_id=repo_id, temperature=0)
 
 template = """
 Step1 :
@@ -26,35 +26,23 @@ A:"""
 prompt = PromptTemplate(input_variables=["solutions"], template=template)
 chain2 = LLMChain(llm=llm_mixtral, prompt=prompt, output_key="review")
 
-# template = """
-# Step 3:
+template = """
+Step 3:
 
-# For each solution, deepen the thought process. Generate potential scenarios, strategies for implementation, any necessary partnerships or resources, and how potential obstacles might be overcome. Also, consider any potential unexpected outcomes and how they might be handled.
+For each solution, deepen the thought process. Generate potential scenarios, strategies for implementation, any necessary partnerships or resources, and how potential obstacles might be overcome. Also, consider any potential unexpected outcomes and how they might be handled.
 
-# {review}
+{review}
 
-# A:"""
+A:"""
+prompt = PromptTemplate(input_variables=["review"], template=template)
+chain3 = LLMChain(llm=llm_mixtral, prompt=prompt, output_key="deepen_thought_process")
 
-# prompt = PromptTemplate(input_variables=["review"], template=template)
+template = """
+Step 4:
 
-# chain3 = LLMChain(
-#     llm=ChatOpenAI(temperature=0, model="gpt-4"),
-#     prompt=prompt,
-#     output_key="deepen_thought_process",
-# )
+Based on the evaluations and scenarios, rank the solutions in order of promise. Provide a justification for each ranking and offer any final thoughts or considerations for each solution
+{deepen_thought_process}
 
-# template = """
-# Step 4:
-
-# Based on the evaluations and scenarios, rank the solutions in order of promise. Provide a justification for each ranking and offer any final thoughts or considerations for each solution
-# {deepen_thought_process}
-
-# A:"""
-
-# prompt = PromptTemplate(input_variables=["deepen_thought_process"], template=template)
-
-# chain4 = LLMChain(
-#     llm=ChatOpenAI(temperature=0, model="gpt-4"),
-#     prompt=prompt,
-#     output_key="ranked_solutions",
-# )
+A:"""
+prompt = PromptTemplate(input_variables=["deepen_thought_process"], template=template)
+chain4 = LLMChain(llm=llm_mixtral, prompt=prompt, output_key="ranked_solutions")
