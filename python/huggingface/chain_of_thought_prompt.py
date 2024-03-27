@@ -12,25 +12,19 @@ Step1 :
 I have a problem related to {input}. Could you brainstorm three distinct solutions? Please consider a variety of factors such as {perfect_factors}
 A:
 """
-
 prompt = PromptTemplate(input_variables=["input", "perfect_factors"], template=template)
-
 chain1 = LLMChain(llm=llm_mixtral, prompt=prompt, output_key="solutions")
 
-# template = """
-# Step 2:
+template = """
+Step 2:
 
-# For each of the three proposed solutions, evaluate their potential. Consider their pros and cons, initial effort needed, implementation difficulty, potential challenges, and the expected outcomes. Assign a probability of success and a confidence level to each option based on these factors
+For each of the three proposed solutions, evaluate their potential. Consider their pros and cons, initial effort needed, implementation difficulty, potential challenges, and the expected outcomes. Assign a probability of success and a confidence level to each option based on these factors
 
-# {solutions}
+{solutions}
 
-# A:"""
-
-# prompt = PromptTemplate(input_variables=["solutions"], template=template)
-
-# chain2 = LLMChain(
-#     llm=ChatOpenAI(temperature=0, model="gpt-4"), prompt=prompt, output_key="review"
-# )
+A:"""
+prompt = PromptTemplate(input_variables=["solutions"], template=template)
+chain2 = LLMChain(llm=llm_mixtral, prompt=prompt, output_key="review")
 
 # template = """
 # Step 3:
