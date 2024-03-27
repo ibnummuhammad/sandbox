@@ -1,25 +1,66 @@
-import json
-
-from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
+from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 
-input = "PROVINSI DKI JAKARTA JAKARTA SELATAN IK 3174073007960007 na : DIMAS RADITYO npat/Tgl Lahir : JAKARTA, 30-07-1996 is kelamin : LAKI-LAKI Gol. Darah :0 mat : JL.RADIO IV NO.2 RT/RW 001/004 Kel/Desa : KRAMAT PELA Kecamatan : KEBAYORAN BARU ma : ISLAM us Perkawinan: KAWIN erjaan : KARYAWAN SWASTA JAKARTA SELATAN arganegaraan: WNI 27-12-2021 aku Hingga : SEUMUR HIDUP"
-
-template = """### INSTRUCTIONS ###
-I have a text data that I got from doing an OCR to Indonesian ID Card (KTP or Kartu Tanda Penduduk). You must convert the text into a structured format. The structured output must be a markdown code snippet formatted in the following schema, including the leading and trailing "```json" and "```":
-
-The OCR result might not be complete and contains some typo, but you must adhere to these 15 keys above and leave it empty if you can't detect the keys. I will give you the text data and you MUST only return the JSON in a code snippet & nothing else.
-
-### USER INPUT ###
-{input}"""
-
-prompt = PromptTemplate.from_template(template)
 
 repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
+llm_mixtral = HuggingFaceEndpoint(repo_id=repo_id, temperature=0.5)
 
-llm = HuggingFaceEndpoint(repo_id=repo_id, temperature=0.5)
-llm_chain = LLMChain(prompt=prompt, llm=llm)
-llm_response = llm_chain.invoke(input)
-print(json.dumps(llm_response, indent=2))
-print(json.dumps(llm_response["text"], indent=2))
+template = """
+Step1 :
+ 
+I have a problem related to {input}. Could you brainstorm three distinct solutions? Please consider a variety of factors such as {perfect_factors}
+A:
+"""
+
+prompt = PromptTemplate(input_variables=["input", "perfect_factors"], template=template)
+
+chain1 = LLMChain(llm=llm_mixtral, prompt=prompt, output_key="solutions")
+
+# template = """
+# Step 2:
+
+# For each of the three proposed solutions, evaluate their potential. Consider their pros and cons, initial effort needed, implementation difficulty, potential challenges, and the expected outcomes. Assign a probability of success and a confidence level to each option based on these factors
+
+# {solutions}
+
+# A:"""
+
+# prompt = PromptTemplate(input_variables=["solutions"], template=template)
+
+# chain2 = LLMChain(
+#     llm=ChatOpenAI(temperature=0, model="gpt-4"), prompt=prompt, output_key="review"
+# )
+
+# template = """
+# Step 3:
+
+# For each solution, deepen the thought process. Generate potential scenarios, strategies for implementation, any necessary partnerships or resources, and how potential obstacles might be overcome. Also, consider any potential unexpected outcomes and how they might be handled.
+
+# {review}
+
+# A:"""
+
+# prompt = PromptTemplate(input_variables=["review"], template=template)
+
+# chain3 = LLMChain(
+#     llm=ChatOpenAI(temperature=0, model="gpt-4"),
+#     prompt=prompt,
+#     output_key="deepen_thought_process",
+# )
+
+# template = """
+# Step 4:
+
+# Based on the evaluations and scenarios, rank the solutions in order of promise. Provide a justification for each ranking and offer any final thoughts or considerations for each solution
+# {deepen_thought_process}
+
+# A:"""
+
+# prompt = PromptTemplate(input_variables=["deepen_thought_process"], template=template)
+
+# chain4 = LLMChain(
+#     llm=ChatOpenAI(temperature=0, model="gpt-4"),
+#     prompt=prompt,
+#     output_key="ranked_solutions",
+# )
