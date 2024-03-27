@@ -1,10 +1,11 @@
 from langchain.chains.llm import LLMChain
+from langchain.chains.sequential import SequentialChain
 from langchain.prompts import PromptTemplate
 from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 
 
 repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
-llm_mixtral = HuggingFaceEndpoint(repo_id=repo_id, temperature=0)
+llm_mixtral = HuggingFaceEndpoint(repo_id=repo_id, temperature=0.1)
 
 template = """
 Step1 :
@@ -46,3 +47,19 @@ Based on the evaluations and scenarios, rank the solutions in order of promise. 
 A:"""
 prompt = PromptTemplate(input_variables=["deepen_thought_process"], template=template)
 chain4 = LLMChain(llm=llm_mixtral, prompt=prompt, output_key="ranked_solutions")
+
+overall_chain = SequentialChain(
+    chains=[chain1, chain2, chain3, chain4],
+    input_variables=["input", "perfect_factors"],
+    output_variables=["ranked_solutions"],
+    verbose=True,
+)
+
+print(
+    overall_chain(
+        {
+            "input": "human colonization of Mars",
+            "perfect_factors": "The distance between Earth and Mars is very large, making regular resupply difficult",
+        }
+    )
+)
