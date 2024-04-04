@@ -6,6 +6,11 @@ import (
 	"fmt"
 )
 
+type Vertex struct {
+	X int
+	Y int
+}
+
 func add(x int, y int) int {
 	return x + y
 }
@@ -25,4 +30,5 @@ func main() {
 	fmt.Printf("%T\n", arr)
 	fmt.Printf("%T\n", add)
 	fmt.Printf("%T\n", add(3, 5))
+	fmt.Printf("%T\n", Vertex{1, 2})
 }
