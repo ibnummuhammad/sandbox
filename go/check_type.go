@@ -24,4 +24,5 @@ func main() {
 	fmt.Printf("%T\n", d)
 	fmt.Printf("%T\n", arr)
 	fmt.Printf("%T\n", add)
+	fmt.Printf("%T\n", add(3, 5))
 }
