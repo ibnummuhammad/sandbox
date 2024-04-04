@@ -6,6 +6,10 @@ import (
 	"fmt"
 )
 
+func add(x int, y int) int {
+	return x + y
+}
+
 // main function
 func main() {
 	f := true
@@ -19,4 +23,5 @@ func main() {
 	fmt.Printf("%T\n", a)
 	fmt.Printf("%T\n", d)
 	fmt.Printf("%T\n", arr)
+	fmt.Printf("%T\n", add)
 }
