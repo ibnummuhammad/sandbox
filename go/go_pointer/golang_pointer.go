@@ -5,6 +5,8 @@ import "fmt"
 func main() {
 	i, j := 42, 2701
 
+	fmt.Println(i) // read i through the pointer
+	fmt.Printf("%T\n", i)
 	p := &i        // point to i
 	fmt.Println(p) // read i through the pointer
 	fmt.Printf("%T\n", p)
