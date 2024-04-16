@@ -26,7 +26,16 @@ message GarageListByUser {
 
 import "google/protobuf/empty.proto";
 
+message GarageUserId {
+    string user_id = 1;
+}
+
+message GarageAndUserId {
+    string user_id = 1;
+    Garage garage = 2;
+}
+
 service Garages {
-    rpc List(string) returns (GarageList) {}
-    rpc Add(string, Garage) returns (google.protobuf.Empty) {}
+    rpc List(GarageUserId) returns (GarageList) {}
+    rpc Add(GarageAndUserId) returns (google.protobuf.Empty) {}
 }
