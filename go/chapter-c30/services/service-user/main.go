@@ -43,4 +43,11 @@ func main() {
 	model.RegisterUsersServer(srv, userSrv)
 
 	log.Println("Starting RPC server at", config.ServiceUserPort)
+
+	l, err := net.Listen("tcp", config.ServiceUserPort)
+	if err != nil {
+		log.Fatalf("could not listen to %s: %v", config.ServiceUserPort, err)
+	}
+
+	log.Fatal(srv.Serve(l))
 }
