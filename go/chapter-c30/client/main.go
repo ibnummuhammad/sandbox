@@ -46,7 +46,7 @@ func main() {
 		Coordinate: &model.GarageCoordinate{
 			Latitude: 45.123123123,
 			Longitude: 54.1231313123,
-		}
+		},
 	}
 
 	user := serviceUser()
