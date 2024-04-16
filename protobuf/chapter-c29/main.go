@@ -29,4 +29,16 @@ func main() {
 			Longitude: 53.22033123,
 		},
 	}
+
+	var garageList = &model.GarageList{
+		List: []*model.Garage{
+			garage1,
+		},
+	}
+
+	var garageListByUser = &model.GarageListByUser{
+		List: map[string]*model.GarageList{
+			user1.Id: garageList,
+		},
+	}
 }
