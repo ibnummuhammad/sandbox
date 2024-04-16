@@ -22,3 +22,24 @@ func init() {
 type GaragesServer struct {
 	model.UnimplementedGaragesServer
 }
+
+func (GaragesServer) Add(_ context.Context, param *model.GarageAndUserId) (*empty.Empty, error) {
+	userId := param.UserId
+	garage := param.Garage
+
+	if _, ok := localStorage.List[userId]; !ok {
+		localStorage.List[userId] = new(model.GarageList)
+		localStorage.List[userId].List = make([]*model.Garage, 0)
+	}
+	localStorage.List[userId].List = append(localStorage.List[userId].List, garage)
+
+	log.Println("Adding garage", garage.String(), "for user", userId)
+
+	return new(empty.Empty), nil
+}
+
+func (GaragesServer) List(_ context.Context, param *model.GarageUserId) (*model.GarageList, error) {
+	userId := param.UserId
+
+	return localStorage.List[userId], nil
+}
