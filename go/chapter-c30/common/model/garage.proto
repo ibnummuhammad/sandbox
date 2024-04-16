@@ -21,3 +21,12 @@ message GarageList {
 message GarageListByUser {
     map<string, GarageList> list = 1;
 }
+
+// ...
+
+import "google/protobuf/empty.proto";
+
+service Garages {
+    rpc List(string) returns (GarageList) {}
+    rpc Add(string, Garage) returns (google.protobuf.Empty) {}
+}
