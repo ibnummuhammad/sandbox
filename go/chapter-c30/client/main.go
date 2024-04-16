@@ -21,3 +21,13 @@ func serviceGarage() model.GaragesClient {
 
 	return model.NewGaragesClient(conn)
 }
+
+func serviceUser() model.UsersClient {
+	port := config.ServiceUserPort
+	conn, err := grpc.Dial(port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatal("could not connect to", port, err)
+	}
+
+	return model.NewUsersClient(conn)
+}
