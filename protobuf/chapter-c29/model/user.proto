@@ -1,0 +1,10 @@
+syntax = "proto3";
+package model;
+
+option go_package = "./model";
+
+enum UserGender {
+    UNDEFINED = 0;
+    MALE = 1;
+    FEMALE = 2;
+}
