@@ -43,3 +43,18 @@ func (GaragesServer) List(_ context.Context, param *model.GarageUserId) (*model.
 
 	return localStorage.List[userId], nil
 }
+
+func main() {
+	srv := grpc.NewServer()
+	var garageSrv GaragesServer
+	model.RegisterGaragesServer(srv, garageSrv)
+
+	log.Println("Starting RPC server at", config.ServiceGaragePort)
+
+	l, err := net.Listen("tcp", config.ServiceGaragePort)
+	if err != nil {
+		log.Fatalf("could not listen to %s: %v", config.ServiceGaragePort, err)
+	}
+
+	log.Fatal(srv.Serve(l))
+}
