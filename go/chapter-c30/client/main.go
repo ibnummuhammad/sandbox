@@ -48,4 +48,12 @@ func main() {
 			Longitude: 54.1231313123,
 		}
 	}
+
+	user := serviceUser()
+
+	fmt.Printf("\n %s> user test\n", strings.Repeat("=", 10))
+
+	user.Register(context.Background(), &user1)
+
+	user.Register(context.Background(), &user2)
 }
