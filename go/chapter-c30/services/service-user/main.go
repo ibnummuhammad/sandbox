@@ -36,3 +36,11 @@ func (UsersServer) Register(_ context.Context, param *model.User) (*emptypb.Empt
 func (UsersServer) List(context.Context, *emptypb.Empty) (*model.UserList, error) {
 	return localStorage, nil
 }
+
+func main() {
+	srv := grpc.NewServer()
+	var userSrv UsersServer
+	model.RegisterUsersServer(srv, userSrv)
+
+	log.Println("Starting RPC server at", config.ServiceUserPort)
+}
