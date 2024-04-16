@@ -13,3 +13,11 @@ message Garage {
     string name = 2;
     GarageCoordinate coordinate = 3;
 }
+
+message GarageList {
+    repeated Garage list = 1;
+}
+
+message GarageListByUser {
+    map<string, GarageList> list = 1;
+}
