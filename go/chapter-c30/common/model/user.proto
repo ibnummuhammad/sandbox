@@ -20,6 +20,8 @@ message UserList {
     repeated User list = 1;
 }
 
+// ...
+
 import "google/protobuf/empty.proto";
 
 service Users {
