@@ -53,4 +53,12 @@ func main() {
 		os.Exit(0)
 	}
 	fmt.Printf("# ==== As JSON String\n       %s \n", string(jsonb))
+
+	protoObject := new(model.GarageList)
+	err2 := protojson.Unmarshal(jsonb, protoObject)
+	if err2 != nil {
+		fmt.Println(err2.Error())
+		os.Exit(0)
+	}
+	fmt.Printf("# ==== As String\n       %s \n", protoObject.String())
 }
