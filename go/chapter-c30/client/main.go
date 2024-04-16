@@ -11,3 +11,13 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/grpc"
 )
+
+func serviceGarage() model.GaragesClient {
+	port := config.ServiceGaragePort
+	conn, err := grpc.Dial(port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatal("could not connect to", port, err)
+	}
+
+	return model.NewGaragesClient(conn)
+}
