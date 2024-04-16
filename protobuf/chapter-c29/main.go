@@ -43,4 +43,5 @@ func main() {
 	// }
 
 	fmt.Printf("# ==== Original\n       %#v \n", user1)
+	fmt.Printf("# ==== As String\n       %s \n", user1.String())
 }
