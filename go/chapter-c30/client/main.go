@@ -2,14 +2,15 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
-	"net"
+	"strings"
 
 	"chapter-c30/common/config"
 	"chapter-c30/common/model"
 
-	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func serviceGarage() model.GaragesClient {
@@ -39,14 +40,11 @@ func main() {
 		Password: "kw8d hl12/3m,a",
 		Gender: model.UserGender(model.UserGender_value["MALE"]),
 	}
-
-	garage1 := model.Garage{
-		Id: "q001",
-		Name: "Quel'thalas",
-		Coordinate: &model.GarageCoordinate{
-			Latitude: 45.123123123,
-			Longitude: 54.1231313123,
-		},
+	user2 := model.User{
+		Id: "n002",
+		Name: "Nabila Rozan",
+		Password: "PasswordTralala",
+		Gender: model.UserGender(model.UserGender_value["FEMALE"]),
 	}
 
 	user := serviceUser()
