@@ -13,7 +13,7 @@ int main()
  
     // Function declared in header
     // file to find the sum
-    cout << "Sum is: " << sumOfTwoNumbers(a, b) << endl;
+    cout << "\nSum is: " << sumOfTwoNumbers(a, b) << endl;
 
     return 0;
 }
