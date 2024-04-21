@@ -1,25 +1,18 @@
-using namespace std;
-
 #include <iostream>
 
 class A {
-  int x = 5;
-
 public:
-  void display() { std::cout << "Value of x is : " << x << std::endl; }
+  virtual void display() { std::cout << "Base class is invoked" << std::endl; }
 };
 
 class B : public A {
-  int y = 10;
-
 public:
-  void display() { std::cout << "Value of y is : " << y << std::endl; }
+  void display() { std::cout << "Derived Class is invoked" << std::endl; }
 };
 
 int main() {
-  A *a;
-  B b;
+  A *a; // pointer of base class
+  B b;  // object of derived class
   a = &b;
-  a->display();
-  return 0;
+  a->display(); // Late Binding occurs
 }
