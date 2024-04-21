@@ -1,18 +1,24 @@
 #include <iostream>
 
-class A {
+using namespace std;
+
+class Base {
 public:
-  virtual void display() { std::cout << "Base class is invoked" << std::endl; }
+  virtual void show() = 0;
 };
 
-class B : public A {
+class Derived : public Base {
 public:
-  void display() { std::cout << "Derived Class is invoked" << std::endl; }
+  void show() {
+    std::cout << "Derived class is derived from the base class." << std::endl;
+  }
 };
 
 int main() {
-  A *a; // pointer of base class
-  B b;  // object of derived class
-  a = &b;
-  a->display(); // Late Binding occurs
+  Base *bptr;
+  // Base b;
+  Derived d;
+  bptr = &d;
+  bptr->show();
+  return 0;
 }
