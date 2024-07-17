@@ -1,0 +1,1 @@
+docker compose -f docker-compose-jdbc.yaml exec mysql bash -c 'mysql -u $MYSQL_USER  -p$MYSQL_PASSWORD inventory -e "delete from customers where email='"'"'john.doe@example.com'"'"'"'
