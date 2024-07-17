@@ -52,4 +52,5 @@ repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 llm = HuggingFaceEndpoint(repo_id=repo_id, temperature=0.5)
 llm_chain = LLMChain(prompt=prompt, llm=llm)
 llm_response = llm_chain.invoke(input)
-print(json.dumps(llm_response, indent=2))
+# print(json.dumps(llm_response, indent=2))
+print(llm_response["text"])
