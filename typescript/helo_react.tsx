@@ -3,7 +3,7 @@ let podName: string = "pipeline-4vqqd-3932826485";
 let getCreateTimeSinceEpoch: number = 1721149200000;
 let getLastUpdateTimeSinceEpoch: number = 1721408399000;
 
-var date: Date = new Date(getCreateTimeSinceEpoch);
+const date: Date = new Date(getCreateTimeSinceEpoch);
 console.log(date);
 const hours = date.getHours();
 console.log(hours);
@@ -14,7 +14,7 @@ console.log(day);
 const time = date.getTime();
 console.log(time);
 
-var date_kurang = new Date(getCreateTimeSinceEpoch);
+const date_kurang = new Date(getCreateTimeSinceEpoch);
 date_kurang.setHours(date_kurang.getHours() - 2);
 const hours1 = date_kurang.getHours();
 console.log(hours1);
@@ -22,7 +22,7 @@ const day1 = date_kurang.getDate();
 console.log(day1);
 
 console.log("lebih");
-var date_lebih = new Date(getCreateTimeSinceEpoch);
+const date_lebih = new Date(getCreateTimeSinceEpoch);
 date_lebih.setHours(date_lebih.getHours() + 2);
 const hours2 = date_lebih.getHours();
 console.log(hours2);
