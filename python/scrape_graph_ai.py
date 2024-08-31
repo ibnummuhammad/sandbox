@@ -3,6 +3,7 @@ import os
 
 from scrapegraphai.graphs import SmartScraperGraph
 
+
 # Define the configuration for the scraping pipeline
 graph_config = {
     "llm": {
