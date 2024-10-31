@@ -7,4 +7,11 @@ loader = PDFPlumberLoader("SSRN-id3648557.pdf")
 docs = loader.load()
 
 text_splitter = SemanticChunker(HuggingFaceEmbeddings())
-print(text_splitter)
+documents = text_splitter.split_documents(docs)
+
+# print("Number of chunks created: ", len(documents))
+
+# for i in range(3):
+#     print()
+#     print(f"CHUNK: {i+1}")
+#     print(documents[i].page_content)
