@@ -11,5 +11,5 @@ const exampleProxy = createProxyMiddleware({
 });
 
 // mount `exampleProxy` in web server
-app.use('/api', exampleProxy);
+app.use('/', exampleProxy);
 app.listen(3000);
