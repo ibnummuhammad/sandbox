@@ -6,7 +6,7 @@ const app = express();
 // create the proxy
 /** @type {import('http-proxy-middleware/dist/types').RequestHandler<express.Request, express.Response>} */
 const exampleProxy = createProxyMiddleware({
-    target: 'http://www.example.org/api', // target host with the same base path
+    target: 'https://www.manga4life.com/', // target host with the same base path
     changeOrigin: true, // needed for virtual hosted sites
 });
 
