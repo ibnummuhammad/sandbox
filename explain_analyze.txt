@@ -1,0 +1,179 @@
+MERGE
+"Trino version: 474
+Queued: 730.27us, Analysis: 143.63ms, Planning: 497.42ms, Execution: 37.60m
+Fragment 1 [COORDINATOR_ONLY]
+    CPU: 354.43ms, Scheduled: 1.48s, Blocked 3.13h (Input: 2.50h, Output: 0.00ns), Input: 5429 rows (9.60MB); per task: avg.: 5429.00 std.dev.: 0.00, Output: 1 row (9B)
+    Peak Memory: 288B, Tasks count: 1; per task: max: 288B
+    Output layout: [rows]
+    Output partitioning: SINGLE []
+    TableCommit[target = iceberg:datalake_iceberg.coin_matching_engine__orders_partitioned_backup_test_4$data@949527691137443406]
+    │   Layout: [rows:bigint]
+    │   CPU: 323.00ms (0.00%), Scheduled: 1.44s (0.00%), Blocked: 0.00ns (0.00%), Output: 1 row (9B)
+    │   Input avg.: 0.00 rows, Input std.dev.: ?%
+    └─ LocalExchange[partitioning = SINGLE]
+       │   Layout: [partialrows:bigint, fragment:varbinary]
+       │   Estimates: {rows: ? (?), cpu: 0, memory: 0B, network: 0B}
+       │   CPU: 8.00ms (0.00%), Scheduled: 8.00ms (0.00%), Blocked: 37.56m (0.20%), Output: 5429 rows (9.60MB)
+       │   Input avg.: 1357.25 rows, Input std.dev.: 4.93%
+       └─ RemoteSource[sourceFragmentIds = [2]]
+              Layout: [partialrows:bigint, fragment:varbinary]
+              CPU: 15.00ms (0.00%), Scheduled: 18.00ms (0.00%), Blocked: 2.50h (0.78%), Output: 5429 rows (9.60MB)
+              Input avg.: 1357.25 rows, Input std.dev.: 4.93%
+
+Fragment 2 [MERGE [insert = HASH]]
+    CPU: 2.03h, Scheduled: 2.35h, Blocked 4.80d (Input: 1.42d, Output: 0.00ns), Input: 2240000000 rows (781.84GB); per task: avg.: 280000000.00 std.dev.: 72159164.27, Output: 5429 rows (9.60MB)
+    Peak Memory: 186.98MB, Tasks count: 8; per task: max: 91.92MB
+    Output layout: [partialrows, fragment]
+    Output partitioning: SINGLE []
+    MergeWriter[table = iceberg:datalake_iceberg.coin_matching_engine__orders_partitioned_backup_test_4$data@949527691137443406]
+    │   Layout: [partialrows:bigint, fragment:varbinary]
+    │   CPU: 1.66h (13.90%), Scheduled: 1.92h (9.87%), Blocked: 0.00ns (0.00%), Output: 5429 rows (9.60MB)
+    │   Input avg.: 17500000.00 rows, Input std.dev.: 211.71%
+    └─ LocalExchange[partitioning = MERGE [insert = HASH], arguments = [operation::tinyint, processed_date::date]]
+       │   Layout: [id:varchar, amount:decimal(20,8), avg_traded_price:decimal(20,8), client_id:bigint, client_order_id:varchar, client_user_id:bigint, created_at:timestamp(6), created_by:varchar, deleted_at:timestamp(6), executed_amount:decimal(20,8), partition_date:date, payment_status:varchar, price:decimal(20,8), quantity:decimal(20,8), quantity_filled:decimal(20,8), reason:varchar, self_trading:boolean, side:varchar, status:varchar, stp_mode:varchar, symbol:varchar, synced_at:timestamp(6), type:varchar, updated_at:timestamp(6), processed_date:date, processed_timestamp:timestamp(6), operation:tinyint, case_number_29:integer, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), insert_from_update:tinyint]
+       │   Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: 0B}
+       │   CPU: 14.93m (2.09%), Scheduled: 17.03m (1.46%), Blocked: 3.38d (25.29%), Output: 2240000000 rows (782.43GB)
+       │   Input avg.: 35000000.00 rows, Input std.dev.: 25.78%
+       └─ RemoteSource[sourceFragmentIds = [3]]
+              Layout: [id:varchar, amount:decimal(20,8), avg_traded_price:decimal(20,8), client_id:bigint, client_order_id:varchar, client_user_id:bigint, created_at:timestamp(6), created_by:varchar, deleted_at:timestamp(6), executed_amount:decimal(20,8), partition_date:date, payment_status:varchar, price:decimal(20,8), quantity:decimal(20,8), quantity_filled:decimal(20,8), reason:varchar, self_trading:boolean, side:varchar, status:varchar, stp_mode:varchar, symbol:varchar, synced_at:timestamp(6), type:varchar, updated_at:timestamp(6), processed_date:date, processed_timestamp:timestamp(6), operation:tinyint, case_number_29:integer, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), insert_from_update:tinyint]
+              CPU: 6.60m (0.92%), Scheduled: 7.77m (0.66%), Blocked: 1.42d (10.61%), Output: 2240000000 rows (781.84GB)
+              Input avg.: 35000000.00 rows, Input std.dev.: 25.78%
+
+Fragment 3 [HASH]
+    CPU: 2.68h, Scheduled: 3.00h, Blocked 3.11d (Input: 1.18d, Output: 22.15h), Input: 1120000000 rows (676.79GB); per task: avg.: 140000000.00 std.dev.: 357.92, Output: 2240000000 rows (781.90GB)
+    Peak Memory: 26.11GB, Tasks count: 8; per task: max: 3.67GB
+    Output layout: [id, amount, avg_traded_price, client_id, client_order_id, client_user_id, created_at, created_by, deleted_at, executed_amount, partition_date, payment_status, price, quantity, quantity_filled, reason, self_trading, side, status, stp_mode, symbol, synced_at, type, updated_at, processed_date, processed_timestamp, operation, case_number_29, field, insert_from_update]
+    Output partitioning: MERGE [insert = HASH] [operation, processed_date]
+    MergeProcessor[]
+    │   Layout: [id:varchar, amount:decimal(20,8), avg_traded_price:decimal(20,8), client_id:bigint, client_order_id:varchar, client_user_id:bigint, created_at:timestamp(6), created_by:varchar, deleted_at:timestamp(6), executed_amount:decimal(20,8), partition_date:date, payment_status:varchar, price:decimal(20,8), quantity:decimal(20,8), quantity_filled:decimal(20,8), reason:varchar, self_trading:boolean, side:varchar, status:varchar, stp_mode:varchar, symbol:varchar, synced_at:timestamp(6), type:varchar, updated_at:timestamp(6), processed_date:date, processed_timestamp:timestamp(6), operation:tinyint, case_number_29:integer, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), insert_from_update:tinyint]
+    │   CPU: 1.38h (11.58%), Scheduled: 1.54h (7.88%), Blocked: 22.15h (6.90%), Output: 2240000000 rows (781.90GB)
+    │   Input avg.: 17500000.00 rows, Input std.dev.: 0.02%
+    │   target: iceberg:datalake_iceberg.coin_matching_engine__orders_partitioned_backup_test_4$data@949527691137443406
+    │   merge row column: merge_row
+    │   row id column: field
+    │   redistribution columns: [processed_date]
+    │   data columns: [id, amount, avg_traded_price, client_id, client_order_id, client_user_id, created_at, created_by, deleted_at, executed_amount, partition_date, payment_status, price, quantity, quantity_filled, reason, self_trading, side, status, stp_mode, symbol, synced_at, type, updated_at, processed_date, processed_timestamp]
+    └─ Filter[filterPredicate = (CASE WHEN ($not(is_distinct) AND $not((unique_id IS NULL))) THEN CAST(fail(integer '119', varchar 'One MERGE target table row matched more than one source row') AS boolean) ELSE boolean 'true' END)]
+       │   Layout: [processed_date:date, unique_id:bigint, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), merge_row:row(varchar, decimal(20,8), decimal(20,8), bigint, varchar, bigint, timestamp(6), varchar, timestamp(6), decimal(20,8), date, varchar, decimal(20,8), decimal(20,8), decimal(20,8), varchar, boolean, varchar, varchar, varchar, varchar, timestamp(6), varchar, timestamp(6), date, timestamp(6), boolean, tinyint, integer), case_number:integer, is_distinct:boolean]
+       │   Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: 0B}
+       │   CPU: 45.47m (6.36%), Scheduled: 50.18m (4.29%), Blocked: 0.00ns (0.00%), Output: 1120000000 rows (678.67GB)
+       │   Input avg.: 17500000.00 rows, Input std.dev.: 0.02%
+       └─ MarkDistinct[distinct = [unique_id:bigint, case_number:integer], marker = is_distinct]
+          │   Layout: [processed_date:date, unique_id:bigint, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), merge_row:row(varchar, decimal(20,8), decimal(20,8), bigint, varchar, bigint, timestamp(6), varchar, timestamp(6), decimal(20,8), date, varchar, decimal(20,8), decimal(20,8), decimal(20,8), varchar, boolean, varchar, varchar, varchar, varchar, timestamp(6), varchar, timestamp(6), date, timestamp(6), boolean, tinyint, integer), case_number:integer, is_distinct:boolean]
+          │   CPU: 15.01m (2.10%), Scheduled: 16.73m (1.43%), Blocked: 0.00ns (0.00%), Output: 1120000000 rows (677.09GB)
+          │   Input avg.: 17500000.00 rows, Input std.dev.: 0.02%
+          └─ LocalExchange[partitioning = HASH, arguments = [unique_id::bigint, case_number::integer]]
+             │   Layout: [processed_date:date, unique_id:bigint, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), merge_row:row(varchar, decimal(20,8), decimal(20,8), bigint, varchar, bigint, timestamp(6), varchar, timestamp(6), decimal(20,8), date, varchar, decimal(20,8), decimal(20,8), decimal(20,8), varchar, boolean, varchar, varchar, varchar, varchar, timestamp(6), varchar, timestamp(6), date, timestamp(6), boolean, tinyint, integer), case_number:integer]
+             │   Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: 0B}
+             │   CPU: 13.33m (1.87%), Scheduled: 15.11m (1.29%), Blocked: 1.04d (7.78%), Output: 1120000000 rows (677.08GB)
+             │   Input avg.: 17500000.00 rows, Input std.dev.: 0.69%
+             └─ RemoteSource[sourceFragmentIds = [4]]
+                    Layout: [processed_date:date, unique_id:bigint, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), merge_row:row(varchar, decimal(20,8), decimal(20,8), bigint, varchar, bigint, timestamp(6), varchar, timestamp(6), decimal(20,8), date, varchar, decimal(20,8), decimal(20,8), decimal(20,8), varchar, boolean, varchar, varchar, varchar, varchar, timestamp(6), varchar, timestamp(6), date, timestamp(6), boolean, tinyint, integer), case_number:integer]
+                    CPU: 3.60m (0.50%), Scheduled: 4.82m (0.41%), Blocked: 1.18d (8.84%), Output: 1120000000 rows (676.79GB)
+                    Input avg.: 17500000.00 rows, Input std.dev.: 0.69%
+
+Fragment 4 [HASH]
+    CPU: 2.87h, Scheduled: 3.22h, Blocked 3.36d (Input: 22.00h, Output: 17.36h), Input: 2240000000 rows (390.67GB); per task: avg.: 280000000.00 std.dev.: 20668.14, Output: 1120000000 rows (676.78GB)
+    Peak Memory: 88.42GB, Tasks count: 8; per task: max: 11.08GB
+    Output layout: [processed_date, unique_id, field, merge_row, case_number]
+    Output partitioning: HASH [unique_id, case_number]
+    Project[]
+    │   Layout: [processed_date:date, unique_id:bigint, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), merge_row:row(varchar, decimal(20,8), decimal(20,8), bigint, varchar, bigint, timestamp(6), varchar, timestamp(6), decimal(20,8), date, varchar, decimal(20,8), decimal(20,8), decimal(20,8), varchar, boolean, varchar, varchar, varchar, varchar, timestamp(6), varchar, timestamp(6), date, timestamp(6), boolean, tinyint, integer), case_number:integer]
+    │   Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: 0B}
+    │   CPU: 20.72m (2.90%), Scheduled: 23.03m (1.97%), Blocked: 17.36h (5.41%), Output: 1120000000 rows (676.78GB)
+    │   Input avg.: 17500000.00 rows, Input std.dev.: 0.39%
+    │   case_number := merge_row.28
+    └─ Project[]
+       │   Layout: [processed_date:date, unique_id:bigint, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), merge_row:row(varchar, decimal(20,8), decimal(20,8), bigint, varchar, bigint, timestamp(6), varchar, timestamp(6), decimal(20,8), date, varchar, decimal(20,8), decimal(20,8), decimal(20,8), varchar, boolean, varchar, varchar, varchar, varchar, timestamp(6), varchar, timestamp(6), date, timestamp(6), boolean, tinyint, integer)]
+       │   Estimates: {rows: ? (?), cpu: ?, memory: 0B, network: 0B}
+       │   CPU: 1.69h (14.18%), Scheduled: 1.88h (9.64%), Blocked: 0.00ns (0.00%), Output: 1120000000 rows (670.64GB)
+       │   Input avg.: 17500000.00 rows, Input std.dev.: 0.39%
+       │   merge_row := (CASE WHEN present THEN ROW (id, amount_1, avg_traded_price_2, client_id_3, client_order_id_4, client_user_id_5, created_at_6, created_by_7, deleted_at_8, executed_amount_9, partition_date_10, payment_status_11, price_12, quantity_13, quantity_filled_14, reason_15, self_trading_16, side_17, status_18, stp_mode_19, symbol_20, synced_at_21, type_22, updated_at_23, processed_date_24, processed_timestamp_25, $not((present IS NULL)), tinyint '3', integer '0') WHEN (present IS NULL) THEN ROW (id_0, amount_1, avg_traded_price_2, client_id_3, client_order_id_4, client_user_id_5, created_at_6, created_by_7, deleted_at_8, executed_amount_9, partition_date_10, payment_status_11, price_12, quantity_13, quantity_filled_14, reason_15, self_trading_16, side_17, status_18, stp_mode_19, symbol_20, synced_at_21, type_22, updated_at_23, processed_date_24, processed_timestamp_25, $not((present IS NULL)), tinyint '1', integer '1') ELSE null::row(varchar, decimal(20,8), decimal(20,8), bigint, varchar, bigint, timestamp(6), varchar, timestamp(6), decimal(20,8), date, varchar, decimal(20,8), decimal(20,8), decimal(20,8), varchar, boolean, varchar, varchar, varchar, varchar, timestamp(6), varchar, timestamp(6), date, timestamp(6), boolean, tinyint, integer) END)
+       └─ LeftJoin[criteria = (processed_date_24 = processed_date) AND (id_0 = id), distribution = PARTITIONED]
+          │   Layout: [id_0:varchar, amount_1:decimal(20,8), avg_traded_price_2:decimal(20,8), client_id_3:bigint, client_order_id_4:varchar, client_user_id_5:bigint, created_at_6:timestamp(6), created_by_7:varchar, deleted_at_8:timestamp(6), executed_amount_9:decimal(20,8), partition_date_10:date, payment_status_11:varchar, price_12:decimal(20,8), quantity_13:decimal(20,8), quantity_filled_14:decimal(20,8), reason_15:varchar, self_trading_16:boolean, side_17:varchar, status_18:varchar, stp_mode_19:varchar, symbol_20:varchar, synced_at_21:timestamp(6), type_22:varchar, updated_at_23:timestamp(6), processed_date_24:date, processed_timestamp_25:timestamp(6), id:varchar, processed_date:date, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), unique_id:bigint, present:boolean]
+          │   Estimates: {rows: ? (?), cpu: ?, memory: 781.86GB, network: 0B}
+          │   CPU: 42.73m (5.98%), Scheduled: 47.23m (4.04%), Blocked: 1.40d (10.45%), Output: 1120000000 rows (706.65GB)
+          │   Left (probe) Input avg.: 17500000.00 rows, Input std.dev.: 0.39%
+          │   Right (build) Input avg.: 17500000.00 rows, Input std.dev.: 0.02%
+          │   Distribution: PARTITIONED
+          ├─ RemoteSource[sourceFragmentIds = [5]]
+          │      Layout: [id_0:varchar, amount_1:decimal(20,8), avg_traded_price_2:decimal(20,8), client_id_3:bigint, client_order_id_4:varchar, client_user_id_5:bigint, created_at_6:timestamp(6), created_by_7:varchar, deleted_at_8:timestamp(6), executed_amount_9:decimal(20,8), partition_date_10:date, payment_status_11:varchar, price_12:decimal(20,8), quantity_13:decimal(20,8), quantity_filled_14:decimal(20,8), reason_15:varchar, self_trading_16:boolean, side_17:varchar, status_18:varchar, stp_mode_19:varchar, symbol_20:varchar, synced_at_21:timestamp(6), type_22:varchar, updated_at_23:timestamp(6), processed_date_24:date, processed_timestamp_25:timestamp(6)]
+          │      CPU: 3.97m (0.56%), Scheduled: 4.54m (0.39%), Blocked: 16.31h (5.08%), Output: 1120000000 rows (322.78GB)
+          │      Input avg.: 17500000.00 rows, Input std.dev.: 0.39%
+          └─ LocalExchange[partitioning = HASH, arguments = [processed_date::date, id::varchar]]
+             │   Layout: [id:varchar, processed_date:date, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), unique_id:bigint, present:boolean]
+             │   Estimates: {rows: 6545000000 (781.86GB), cpu: 781.86G, memory: 0B, network: 0B}
+             │   CPU: 2.82m (0.39%), Scheduled: 4.44m (0.38%), Blocked: 5.87h (1.83%), Output: 1120000000 rows (68.04GB)
+             │   Input avg.: 17500000.00 rows, Input std.dev.: 12.01%
+             └─ RemoteSource[sourceFragmentIds = [6]]
+                    Layout: [id:varchar, processed_date:date, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), unique_id:bigint, present:boolean]
+                    CPU: 19.46s (0.05%), Scheduled: 40.40s (0.06%), Blocked: 5.70h (1.78%), Output: 1120000000 rows (67.89GB)
+                    Input avg.: 17500000.00 rows, Input std.dev.: 12.01%
+
+Fragment 5 [SOURCE]
+    CPU: 2.39h, Scheduled: 6.62h, Blocked 1.93d (Input: 0.00ns, Output: 1.93d), Input: 1120000000 rows (266.34GB); per task: avg.: 140000000.00 std.dev.: 12380982.89, Output: 1120000000 rows (262.56GB)
+    Peak Memory: 17.96GB, Tasks count: 8; per task: max: 3.08GB
+    Total split distribution time: 495.23ms
+    Output layout: [id_0, amount_1, avg_traded_price_2, client_id_3, client_order_id_4, client_user_id_5, created_at_6, created_by_7, deleted_at_8, executed_amount_9, partition_date_10, payment_status_11, price_12, quantity_13, quantity_filled_14, reason_15, self_trading_16, side_17, status_18, stp_mode_19, symbol_20, synced_at_21, type_22, updated_at_23, processed_date_24, processed_timestamp_25]
+    Output partitioning: HASH [processed_date_24, id_0]
+    TableScan[table = iceberg:datalake_iceberg.coin_matching_engine__orders_partitioned_backup$data@6771707111611250996]
+        Layout: [id_0:varchar, amount_1:decimal(20,8), avg_traded_price_2:decimal(20,8), client_id_3:bigint, client_order_id_4:varchar, client_user_id_5:bigint, created_at_6:timestamp(6), created_by_7:varchar, deleted_at_8:timestamp(6), executed_amount_9:decimal(20,8), partition_date_10:date, payment_status_11:varchar, price_12:decimal(20,8), quantity_13:decimal(20,8), quantity_filled_14:decimal(20,8), reason_15:varchar, self_trading_16:boolean, side_17:varchar, status_18:varchar, stp_mode_19:varchar, symbol_20:varchar, synced_at_21:timestamp(6), type_22:varchar, updated_at_23:timestamp(6), processed_date_24:date, processed_timestamp_25:timestamp(6)]
+        Estimates: {rows: 5740000000 (1.54TB), cpu: 1.54T, memory: 0B, network: 0B}
+        CPU: 2.39h (20.07%), Scheduled: 6.62h (33.94%), Blocked: 1.93d (14.42%), Output: 1120000000 rows (262.56GB)
+        Input avg.: 322580.65 rows, Input std.dev.: 263.61%
+        stp_mode_19 := 20:stp_mode:varchar
+        price_12 := 13:price:decimal(20,8)
+        client_user_id_5 := 6:client_user_id:bigint
+        id_0 := 1:id:varchar
+        synced_at_21 := 22:synced_at:timestamp(6)
+        symbol_20 := 21:symbol:varchar
+        quantity_filled_14 := 15:quantity_filled:decimal(20,8)
+        self_trading_16 := 17:self_trading:boolean
+        processed_timestamp_25 := 26:processed_timestamp:timestamp(6)
+        quantity_13 := 14:quantity:decimal(20,8)
+        status_18 := 19:status:varchar
+        amount_1 := 2:amount:decimal(20,8)
+        deleted_at_8 := 9:deleted_at:timestamp(6)
+        client_id_3 := 4:client_id:bigint
+        created_by_7 := 8:created_by:varchar
+        processed_date_24 := 25:processed_date:date
+        executed_amount_9 := 10:executed_amount:decimal(20,8)
+        avg_traded_price_2 := 3:avg_traded_price:decimal(20,8)
+        created_at_6 := 7:created_at:timestamp(6)
+        updated_at_23 := 24:updated_at:timestamp(6)
+        type_22 := 23:type:varchar
+        client_order_id_4 := 5:client_order_id:varchar
+        reason_15 := 16:reason:varchar
+        side_17 := 18:side:varchar
+        partition_date_10 := 11:partition_date:date
+        payment_status_11 := 12:payment_status:varchar
+        Input: 1120000000 rows (266.34GB), Physical input: 319.61GB, Physical input time: 2.33h, Splits: 3472
+
+Fragment 6 [SOURCE]
+    CPU: 1.97h, Scheduled: 4.35h, Blocked 2.03h (Input: 0.00ns, Output: 2.03h), Input: 1120000000 rows (53.24GB); per task: avg.: 140000000.00 std.dev.: 16362466.30, Output: 1120000000 rows (67.98GB)
+    Peak Memory: 3.13GB, Tasks count: 8; per task: max: 595.82MB
+    Total split distribution time: 277.85ms
+    Output layout: [id, processed_date, field, unique_id, present]
+    Output partitioning: HASH [processed_date, id]
+    Project[]
+    │   Layout: [id:varchar, processed_date:date, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), unique_id:bigint, present:boolean]
+    │   Estimates: {rows: 6545000000 (781.86GB), cpu: 781.86G, memory: 0B, network: 0B}
+    │   CPU: 2.79m (0.39%), Scheduled: 4.32m (0.37%), Blocked: 2.03h (0.63%), Output: 1120000000 rows (67.98GB)
+    │   Input avg.: 360360.36 rows, Input std.dev.: 247.09%
+    │   present := boolean 'true'
+    └─ AssignUniqueId[]
+       │   Layout: [id:varchar, processed_date:date, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar), unique_id:bigint]
+       │   Estimates: {rows: 6545000000 (769.67GB), cpu: 54.86G, memory: 0B, network: 0B}
+       │   CPU: 10.72s (0.03%), Scheduled: 14.74s (0.02%), Blocked: 0.00ns (0.00%), Output: 1120000000 rows (62.63GB)
+       │   Input avg.: 360360.36 rows, Input std.dev.: 247.09%
+       └─ TableScan[table = iceberg:datalake_iceberg.coin_matching_engine__orders_partitioned_backup_test_4$data@949527691137443406]
+              Layout: [id:varchar, processed_date:date, field:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar)]
+              Estimates: {rows: 6545000000 (714.81GB), cpu: 714.81G, memory: 0B, network: 0B}
+              CPU: 1.92h (16.13%), Scheduled: 4.28h (21.92%), Blocked: 0.00ns (0.00%), Output: 1120000000 rows (53.24GB)
+              Input avg.: 360360.36 rows, Input std.dev.: 247.09%
+              processed_date := 25:processed_date:date
+              id := 1:id:varchar
+              field := -2147483648:$row_id:row(_file varchar, _pos bigint, partition_spec_id integer, partition_data varchar)
+              Input: 1120000000 rows (53.24GB), Physical input: 118.14GB, Physical input time: 39.93m, Splits: 3108
+
+"
