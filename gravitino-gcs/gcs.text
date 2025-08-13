@@ -1,0 +1,41 @@
+2025-08-13 18:04:28.799 | flag provided but not defined: -public
+2025-08-13 18:04:28.799 | Usage of fake-gcs-server:
+2025-08-13 18:04:28.799 |   -backend string
+2025-08-13 18:04:28.799 |     	storage backend (memory or filesystem) (default "filesystem")
+2025-08-13 18:04:28.799 |   -cert-location string
+2025-08-13 18:04:28.799 |     	location for server certificate
+2025-08-13 18:04:28.799 |   -cors-headers string
+2025-08-13 18:04:28.799 |     	comma separated list of headers to add to the CORS allowlist
+2025-08-13 18:04:28.799 |   -data string
+2025-08-13 18:04:28.799 |     	where to load data from (provided that the directory exists)
+2025-08-13 18:04:28.799 |   -event.bucket string
+2025-08-13 18:04:28.799 |     	if not empty, only objects in this bucket will generate trigger events
+2025-08-13 18:04:28.799 |   -event.list string
+2025-08-13 18:04:28.799 |     	comma separated list of events to publish on cloud function URl. Options are: finalize, delete, and metadataUpdate (default "finalize")
+2025-08-13 18:04:28.799 |   -event.object-prefix string
+2025-08-13 18:04:28.799 |     	if not empty, only objects having this prefix will generate trigger events
+2025-08-13 18:04:28.799 |   -event.pubsub-project-id string
+2025-08-13 18:04:28.799 |     	project ID containing the pubsub topic
+2025-08-13 18:04:28.799 |   -event.pubsub-topic string
+2025-08-13 18:04:28.799 |     	pubsub topic name to publish events on
+2025-08-13 18:04:28.799 |   -external-url string
+2025-08-13 18:04:28.799 |     	optional external URL, returned in the Location header for uploads. Defaults to the address where the server is running
+2025-08-13 18:04:28.799 |   -filesystem-root string
+2025-08-13 18:04:28.799 |     	filesystem root (required for the filesystem backend). folder will be created if it doesn't exist (default "/storage")
+2025-08-13 18:04:28.799 |   -host string
+2025-08-13 18:04:28.799 |     	host to bind to (default "0.0.0.0")
+2025-08-13 18:04:28.799 |   -location string
+2025-08-13 18:04:28.799 |     	location for buckets (default "US-CENTRAL1")
+2025-08-13 18:04:28.799 |   -log-level string
+2025-08-13 18:04:28.799 |     	level for logging. Options same as for logrus: trace, debug, info, warn, error, fatal, and panic (default "info")
+2025-08-13 18:04:28.799 |   -port uint
+2025-08-13 18:04:28.799 |     	port to bind to (default 4443)
+2025-08-13 18:04:28.799 |   -port-http uint
+2025-08-13 18:04:28.799 |     	used only when scheme is 'both' as the port to bind http to (default 8000)
+2025-08-13 18:04:28.799 |   -private-key-location string
+2025-08-13 18:04:28.799 |     	location for private key
+2025-08-13 18:04:28.799 |   -public-host string
+2025-08-13 18:04:28.799 |     	Optional URL for public host (default "storage.googleapis.com")
+2025-08-13 18:04:28.799 |   -scheme string
+2025-08-13 18:04:28.799 |     	using 'http' or 'https' or 'both' (default "https")
+2025-08-13 18:04:28.799 | 2025/08/13 11:04:28 flag provided but not defined: -public

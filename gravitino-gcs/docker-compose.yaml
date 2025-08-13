@@ -17,16 +17,17 @@ services:
       - gcs_data:/data
 
   gravitino:
-    image: apache/gravitino:latest
+    image: apache/gravitino:0.9.1
     container_name: gravitino
     depends_on:
       - fake-gcs
     ports:
-      - "8090:8090" # Gravitino API
-      - "9001:9001" # Iceberg REST Catalog
+      - "8090:8090"  # Gravitino main API
+      - "9001:9001"  # Iceberg REST API
     environment:
-      - GRAVITINO_ICEBERG_REST_ENABLED=true
+      - JAVA_OPTS=-Xmx1G
     volumes:
+      - ./gravitino/conf:/opt/gravitino/conf
       - gravitino_data:/opt/gravitino/data
     command: >
       /bin/sh -c "
@@ -42,7 +43,9 @@ services:
       - "8080:8080"
     volumes:
       - ./trino/etc:/etc/trino
+      - trino_data:/data/trino
 
 volumes:
   gcs_data:
   gravitino_data:
+  trino_data:
