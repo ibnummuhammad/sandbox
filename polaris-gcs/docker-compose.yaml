@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  fake-gcs:
+    image: fsouza/fake-gcs-server:latest
+    command: ["-scheme", "http", "-host", "0.0.0.0", "-port", "4443", "-backend", "memory"]
+    ports:
+      - "4443:4443"
+
+  polaris:
+    image: apache/polaris:latest
+    platform: linux/amd64
+    environment:
+      - CATALOG_WAREHOUSE=gs://polaris-warehouse
+      - GOOGLE_APPLICATION_CREDENTIALS=/gcs-creds.json
+    volumes:
+      - ./gcs-creds.json:/gcs-creds.json:ro
+    ports:
+      - "8181:8181"
+    depends_on:
+      - fake-gcs
+
+  trino:
+    image: trinodb/trino:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./etc/catalog/polaris.properties:/etc/trino/catalog/polaris.properties
+      - ./gcs-creds.json:/gcs-creds.json:ro
+      - ./etc/core-site.xml:/etc/trino/core-site.xml
+    depends_on:
+      - polaris
+
+volumes:
+  trino-data:
