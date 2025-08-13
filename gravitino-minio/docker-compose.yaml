@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password
+    volumes:
+      - minio-data:/data
+
+  gravitino:
+    image: apache/gravitino:latest
+    container_name: gravitino
+    ports:
+      - "8181:8181"
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xmx512m"
+    depends_on:
+      - minio
+    command: |
+      /bin/sh -c "
+      /opt/gravitino/bin/gravitino-server start &
+      sleep 5 &&
+      # Create Iceberg REST catalog pointing to MinIO
+      curl -X POST http://localhost:8181/api/metalakes/default/catalogs \
+           -H 'Content-Type: application/json' \
+           -d '{
+                 \"name\": \"iceberg_rest\",
+                 \"type\": \"iceberg\",
+                 \"properties\": {
+                   \"catalog.type\": \"rest\",
+                   \"uri\": \"http://gravitino:8181\",
+                   \"warehouse\": \"s3a://warehouse\",
+                   \"s3.endpoint\": \"http://minio:9000\",
+                   \"s3.access-key\": \"admin\",
+                   \"s3.secret-key\": \"password\",
+                   \"s3.path-style-access\": \"true\"
+                 }
+               }'
+      wait
+      "
+
+  trino:
+    image: trinodb/trino:latest
+    container_name: trino
+    ports:
+      - "8080:8080"
+    depends_on:
+      - gravitino
+    volumes:
+      - ./trino/catalog:/etc/trino/catalog
+
+volumes:
+  minio-data:
