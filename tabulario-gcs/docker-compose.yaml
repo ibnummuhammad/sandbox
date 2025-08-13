@@ -12,7 +12,7 @@ services:
 
   rest:
     image: tabulario/iceberg-rest:0.2.0
-    container_name: rest-catalog
+    container_name: rest
     depends_on:
       - fake-gcs
     ports:
@@ -30,7 +30,7 @@ services:
     image: trinodb/trino:latest
     container_name: trino
     depends_on:
-      - rest-catalog
+      - rest
     ports:
       - "8080:8080"
     volumes:
