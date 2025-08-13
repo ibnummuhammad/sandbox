@@ -6,7 +6,13 @@ services:
     container_name: fake-gcs
     ports:
       - "4443:4443"
-    command: ["-scheme", "http", "-port", "4443", "-public", "0.0.0.0"]
+    command:
+      [
+        "-scheme", "http",
+        "-port", "4443",
+        "-backend", "filesystem",
+        "-filesystem-root", "/data"
+      ]
     volumes:
       - gcs_data:/data
 
@@ -16,15 +22,14 @@ services:
     depends_on:
       - fake-gcs
     ports:
-      - "8090:8090"      # Gravitino UI/API
-      - "9001:9001"      # Iceberg REST catalog endpoint
+      - "8090:8090" # Gravitino API
+      - "9001:9001" # Iceberg REST Catalog
     environment:
       - GRAVITINO_ICEBERG_REST_ENABLED=true
     volumes:
       - gravitino_data:/opt/gravitino/data
     command: >
       /bin/sh -c "
-        # Assuming latest supports consolidated Grav + Iceberg REST
         ./bin/gravitino.sh start
       "
 
