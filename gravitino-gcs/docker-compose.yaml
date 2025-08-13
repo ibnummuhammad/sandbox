@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  fake-gcs:
+    image: fsouza/fake-gcs-server:latest
+    container_name: fake-gcs
+    ports:
+      - "4443:4443"
+    command: ["-scheme", "http", "-port", "4443", "-public", "0.0.0.0"]
+    volumes:
+      - gcs_data:/data
+
+  gravitino:
+    image: apache/gravitino:latest
+    container_name: gravitino
+    depends_on:
+      - fake-gcs
+    ports:
+      - "8090:8090"      # Gravitino UI/API
+      - "9001:9001"      # Iceberg REST catalog endpoint
+    environment:
+      - GRAVITINO_ICEBERG_REST_ENABLED=true
+    volumes:
+      - gravitino_data:/opt/gravitino/data
+    command: >
+      /bin/sh -c "
+        # Assuming latest supports consolidated Grav + Iceberg REST
+        ./bin/gravitino.sh start
+      "
+
+  trino:
+    image: trinodb/trino:latest
+    container_name: trino
+    depends_on:
+      - gravitino
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./trino/etc:/etc/trino
+
+volumes:
+  gcs_data:
+  gravitino_data:

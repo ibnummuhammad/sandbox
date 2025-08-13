@@ -3,33 +3,38 @@ version: "3.8"
 services:
   fake-gcs:
     image: fsouza/fake-gcs-server:latest
-    command: ["-scheme", "http", "-host", "0.0.0.0", "-port", "4443", "-backend", "memory"]
+    container_name: fake-gcs
+    command: ["-scheme", "http", "-port", "4443", "-external-url", "http://fake-gcs:4443", "-backend", "memory"]
     ports:
       - "4443:4443"
 
   polaris:
     image: apache/polaris:latest
     platform: linux/amd64
-    environment:
-      - CATALOG_WAREHOUSE=gs://polaris-warehouse
-      - GOOGLE_APPLICATION_CREDENTIALS=/gcs-creds.json
-    volumes:
-      - ./gcs-creds.json:/gcs-creds.json:ro
-    ports:
-      - "8181:8181"
+    container_name: polaris
     depends_on:
       - fake-gcs
+    environment:
+      POLARIS_STORAGE_TYPE: "GCS"
+      POLARIS_GCS_BUCKET: "iceberg-bucket"
+      POLARIS_GCS_PROJECT: "test-project"
+      STORAGE_EMULATOR_HOST: "http://fake-gcs:4443"
+      GOOGLE_APPLICATION_CREDENTIALS: /workspace/fake-gcs-creds.json
+    volumes:
+      - ./fake-gcs-creds.json:/workspace/fake-gcs-creds.json:ro
+    ports:
+      - "8181:8181"
 
   trino:
     image: trinodb/trino:latest
+    container_name: trino
+    depends_on:
+      - polaris
+    environment:
+      STORAGE_EMULATOR_HOST: "http://fake-gcs:4443"
+      GOOGLE_APPLICATION_CREDENTIALS: /workspace/fake-gcs-creds.json
     ports:
       - "8080:8080"
     volumes:
-      - ./etc/catalog/polaris.properties:/etc/trino/catalog/polaris.properties
-      - ./gcs-creds.json:/gcs-creds.json:ro
-      - ./etc/core-site.xml:/etc/trino/core-site.xml
-    depends_on:
-      - polaris
-
-volumes:
-  trino-data:
+      - ./trino-catalog/polaris.properties:/etc/trino/catalog/polaris.properties:ro
+      - ./fake-gcs-creds.json:/workspace/fake-gcs-creds.json:ro
