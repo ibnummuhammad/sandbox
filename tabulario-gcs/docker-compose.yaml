@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  fake-gcs:
+    image: fsouza/fake-gcs-server:latest
+    container_name: fake-gcs
+    command: -scheme http -port 4443 -backend memory
+    ports:
+      - "4443:4443"
+    volumes:
+      - ./gcs-data:/data
+
+  rest:
+    image: tabulario/iceberg-rest:0.2.0
+    container_name: rest-catalog
+    depends_on:
+      - fake-gcs
+    ports:
+      - "8181:8181"
+    environment:
+      CATALOG_WAREHOUSE: gs://warehouse/
+      CATALOG_IO__IMPL: org.apache.iceberg.hadoop.HadoopFileIO
+      CATALOG_GCS_PROJECT_ID: fake-project
+      CATALOG_GCS_JSON_KEYFILE: /opt/keys/gcs-key.json
+      CATALOG_GCS_EMULATOR_HOST: http://fake-gcs:4443
+    volumes:
+      - ./gcs-key.json:/opt/keys/gcs-key.json:ro
+
+  trino:
+    image: trinodb/trino:latest
+    container_name: trino
+    depends_on:
+      - rest-catalog
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./trino/catalog:/etc/trino/catalog
+      - ./gcs-key.json:/opt/keys/gcs-key.json:ro
