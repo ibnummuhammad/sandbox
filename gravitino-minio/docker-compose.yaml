@@ -14,6 +14,25 @@ services:
     volumes:
       - minio-data:/data
 
+  minio-client:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    volumes:
+      - /tmp:/tmp
+    environment:
+      AWS_ACCESS_KEY_ID: admin
+      AWS_SECRET_ACCESS_KEY: password
+      AWS_REGION: dummy-region
+    entrypoint: >
+      /bin/sh -c "
+      until (mc alias set minio http://minio:9000 admin password) do echo '...waiting...' && sleep 1; done;
+      mc rm -r --force minio/warehouse;
+      mc mb minio/warehouse;
+      mc anonymous set public minio/warehouse;
+      tail -f /dev/null
+      " 
+
   gravitino:
     image: apache/gravitino:latest
     container_name: gravitino
