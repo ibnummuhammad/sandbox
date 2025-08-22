@@ -3,7 +3,7 @@ services:
     image: apache/beam_python3.12_sdk:2.67.0
     container_name: beam-hello
     volumes:
-      - /home/nisahandra/Documents/github/apache/beam-starter-python:/opt/pipeline
+      - ../../beam-starter-python:/opt/pipeline
     working_dir: /opt/pipeline
     entrypoint: ["python"]   # 👈 override the default entrypoint
     command: ["main.py", "--input-text=\"Greetings\""]    # 👈 run your pipeline
