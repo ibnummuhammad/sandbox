@@ -15,6 +15,18 @@ jobs:
       contents: write # Required to push tags
 
     steps:
+      # 🔍 Debug: Print GitHub context to identify the actor
+      - name: Show GitHub Actor Info
+        run: |
+          echo "=== GitHub Context Actor Info ==="
+          echo "github.actor: ${{ github.actor }}"
+          echo "github.triggering_actor: ${{ github.triggering_actor }}"
+          echo "github.actor_id: ${{ github.actor_id }}"
+          echo "github.event_name: ${{ github.event_name }}"
+          echo "github.repository: ${{ github.repository }}"
+          echo "github.ref: ${{ github.ref }}"
+          echo "================================="
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -24,11 +36,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "Git user configured:"
+          git config user.name
+          git config user.email
 
       - name: Create Tag
         run: |
+          echo "Creating tag: ${{ inputs.tag_name }}"
           git tag ${{ inputs.tag_name }}
 
       - name: Push Tag
         run: |
+          echo "Pushing tag: ${{ inputs.tag_name }}"
           git push origin ${{ inputs.tag_name }}
