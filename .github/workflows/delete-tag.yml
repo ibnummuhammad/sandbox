@@ -1,0 +1,36 @@
+name: Delete Git Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Name of the tag to delete (e.g., v1.0.0)"
+        required: true
+        type: string
+
+jobs:
+  delete-tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to delete tags
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        # fetch-depth is not strictly required for deleting,
+        # but good practice to ensure repo context
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Delete Tag
+        run: |
+          # This command deletes the tag from the remote repository
+          git push origin --delete ${{ inputs.tag_name }}
+
+      - name: Confirmation
+        run: echo "Successfully deleted tag ${{ inputs.tag_name }}"
