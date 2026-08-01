@@ -1,0 +1,29 @@
+services:
+  ente-db:
+    image: postgres:15-alpine
+    container_name: ente-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ente
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: ente_db
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ente -d ente_db" ]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+  ente-server:
+    image: ghcr.io/ente/server:latest
+    container_name: ente-server
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./museum.yaml:/museum.yaml:ro
+      - ./data:/data
+    depends_on:
+      ente-db:
+        condition: service_healthy
