@@ -19,6 +19,8 @@ services:
     image: ghcr.io/ente/server:latest
     container_name: ente-server
     restart: unless-stopped
+    environment:
+      - AWS_REGION=us-east-1
     ports:
       - "8080:8080"
     volumes:

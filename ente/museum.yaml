@@ -9,6 +9,7 @@ s3:
   local:
     directory: "/data"
     endpoint: "http://192.168.100.128:8080"
+    region: "us-east-1"
 
 key:
   encryption: "yvmG/RnzKrbCb9L3mgsmoxXr9H7i2Z4qlbT0mL3ln4w="
