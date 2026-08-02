@@ -6,14 +6,18 @@ db:
   password: "supersecretpassword"
 
 s3:
-  local:
-    directory: "/data"
-    endpoint: "http://192.168.100.128:8080"
-    region: "us-east-1"
+  are_local_buckets: true
+  use_path_style_urls: true
+  b2-eu-cen:
+    key: "minioadmin"
+    secret: "minioadmin"
+    endpoint: "http://192.168.100.128:3200"
+    region: "local"
+    bucket: "b2-eu-cen"
 
 key:
   encryption: "yvmG/RnzKrbCb9L3mgsmoxXr9H7i2Z4qlbT0mL3ln4w="
   hash: "KXYiG07wC7GIgvCSdg+WmyWdXDAn6XKYJtp/wkEU7x573+byBRAYtpTP0wwvi8i/4l37uicX1dVTUzwH3sLZyw=="
 
 jwt:
-  secret: "i2DecQmfGreG6q1vBj5tCokhlN41gcfS2cjOs9Po-u8="
+  secret: "V2VsY29tZVRvVGhlTmV3RW50ZVNlcnZlckpXVEtleSE="
