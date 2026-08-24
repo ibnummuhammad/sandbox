@@ -1,49 +1,37 @@
-name: immich
-
 services:
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:v3
     volumes:
-      - /media/immich_pool:/data
+      - /media/ibnu/ibn1tb/immich/library:/data
       - /etc/localtime:/etc/localtime:ro
     environment:
-      - IMMICH_VERSION=v3
+      TZ: Asia/Jakarta
+      DB_HOSTNAME: database
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE_NAME: immich
+      REDIS_HOSTNAME: redis
+      REDIS_PORT: 6379
     ports:
       - '2283:2283'
     depends_on:
       - redis
       - database
     restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
 
   immich-machine-learning:
     container_name: immich_machine_learning
     image: ghcr.io/immich-app/immich-machine-learning:v3
     volumes:
-      - model-cache:/cache
+      - /media/ibnu/ibn1tb/immich/cache:/cache
     restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
 
   redis:
     container_name: immich_redis
     image: docker.io/valkey/valkey:9
-    healthcheck:
-      test: redis-cli ping || exit 1
     restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
 
   database:
     container_name: immich_postgres
@@ -53,16 +41,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: immich
       POSTGRES_INITDB_ARGS: '--data-checksums'
-      DB_STORAGE_TYPE: 'HDD'
     volumes:
-      - /media/pi/500gb/immich/postgres:/var/lib/postgresql
-    shm_size: 128mb
+      - /opt/postgres:/var/lib/postgresql/data
     restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-
-volumes:
-  model-cache:
