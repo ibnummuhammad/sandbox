@@ -2,6 +2,7 @@
 
 ## Rules
 - Never do changes directly using kubectl.
+- Never do direct changes using gcloud cli.
 - When you add changes, never staged your changes unless I told you to do that.
 - Never restore the changes in staged, unless I told you to do that.
 - When creating PR in folder repositories inside /Users/ibnumuhammad/Documents/ajaib , always add the Jira Ticket number in the PR title like "[DDE-1121] patch flink fiat-ledger-top-up-rdn secret in stg" , you need to adjust the Jira Ticket number of "[DDE-1121]" based on Jira Ticket issue.
