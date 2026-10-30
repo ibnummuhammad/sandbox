@@ -15,3 +15,4 @@
 - You can check whether the Jira Ticket is already available in Jira project DDE https://ajaib.atlassian.net/jira/software/projects/DDE/boards/37/backlog , check the Jira Ticket using jira mcp, then use the Jira Ticket number in the PR title.
 - If the related ticket is not available yet, create the new ticket, assign it to me "Ibnu Muhammad", and put the ticket into the current sprint, then use the Jira Ticket number in the PR title.
 - When I ask you to open browser, always open the automation Playwright Browser.
+- GSM secret name is using this naming pattern "{BU}__{DB_NAME/PLATFORM_NAME}__{ACCESS_PRIVILEGE}__{SECRET_PROPERTY}"
