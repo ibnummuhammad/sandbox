@@ -9,6 +9,7 @@
 - Never restore the changes in staged, unless I told you to do that.
 
 ### Must do
+- all commit must be verified
 - to reduce cost, always use gke-spot or any better solution in staging environment. but use the regular node in production.
 - in production, makes image pullPolicy as IfNotPresent. but in staging, make it as Always.
 - When creating PR in folder repositories inside /Users/ibnumuhammad/Documents/ajaib , always add the Jira Ticket number in the PR title like "[DDE-1121] patch flink fiat-ledger-top-up-rdn secret in stg" , you need to adjust the Jira Ticket number of "[DDE-1121]" based on Jira Ticket issue.
