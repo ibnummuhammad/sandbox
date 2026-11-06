@@ -9,6 +9,7 @@
 - Never restore the changes in staged, unless I told you to do that.
 
 ### Must do
+- when i asked you to give the file changes, create new branch for it, give the file changes, but don't git add yet
 - all commit must be verified
 - to reduce cost, always use gke-spot or any better solution in staging environment. but use the regular node in production.
 - in production, makes image pullPolicy as IfNotPresent. but in staging, make it as Always.
