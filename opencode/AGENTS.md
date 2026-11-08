@@ -8,6 +8,7 @@
 - Never directly create PR without me allowing it
 - Never directly create PR without creating first the branch in local
 - When you add changes, never staged your changes unless I told you to do that.
+- When you add changes, never unstaged the previous already staged changes, unless I told you to do that.
 - Never restore the changes in staged, unless I told you to do that.
 
 ### Must do
