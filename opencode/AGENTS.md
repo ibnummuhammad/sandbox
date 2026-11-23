@@ -1,5 +1,7 @@
 # Project Memory
 
+my name is Ibnu Muhammad
+
 ## Rules
 
 ### Prohibited
